@@ -17,7 +17,7 @@ export default function Footer() {
             <div className="flex items-center gap-2 mb-4">
               <Image
                 src="/footer-logo.svg"
-                alt="QuickHire"
+                alt="JobSpehere Logo"
                 width={152}
                 height={36}
               />
@@ -115,7 +115,7 @@ export default function Footer() {
         {/* Divider */}
         <div className="border-t border-gray-700 mt-12 pt-6 flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-sm text-gray-400">
-            {new Date().getFullYear()} © QuickHire. All rights reserved.
+            {new Date().getFullYear()} © JobSphere. All rights reserved.
           </p>
 
           {/* Social Icons */}

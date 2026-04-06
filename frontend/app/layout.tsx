@@ -7,7 +7,7 @@ import Footer from "@/components/layout/Footer";
 const epilogue = Epilogue({
   subsets: ["latin"],
   variable: "--font-epilogue",
-  weight: ["400","500","600","700"]
+  weight: ["400", "500", "600", "700"],
 });
 
 const geistSans = Geist({
@@ -21,7 +21,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "QuickHire",
+  title: "JobSphere",
 };
 
 export default function RootLayout({
@@ -31,9 +31,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${epilogue.variable} antialiased`}
-      >
+      <body className={`${epilogue.variable} antialiased`}>
         <Navbar />
         <main>{children}</main>
         <Footer />

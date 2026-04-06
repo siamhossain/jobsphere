@@ -32,7 +32,7 @@ export default function Navbar() {
           <Link href="/" className="font-bold text-xl pr-4 sm:pr-10">
             <Image
               src="/logo.svg"
-              alt="QuickHire Logo"
+              alt="JobSphere Logo"
               width={152}
               height={36}
               className="inline mr-2 w-[120px] sm:w-[152px] h-auto"

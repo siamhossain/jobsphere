@@ -31,7 +31,7 @@ export default function Navbar() {
         <div className="flex items-center">
           <Link href="/" className="font-bold text-xl pr-4 sm:pr-10">
             <Image
-              src="/logo.svg"
+              src="/JobSphere_logo.png"
               alt="JobSphere Logo"
               width={152}
               height={36}

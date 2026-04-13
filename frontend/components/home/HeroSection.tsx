@@ -3,12 +3,12 @@ import JobFilter from "../jobs/JobFilter";
 export default function Hero() {
   return (
     <section className="hero-section bg-[url('/images/hero-bg.jpg')] bg-cover bg-center bg-no-repeat h-[900px] md:h-[794px]  text-center py-20 bg-white">
+      {/* <div className="absolute inset-0 bg-black opacity-50 z-0"></div> */}
       <div className="container-main">
-        <div className="hero-text-content pt-[82px] w-full md:w-3/4 lg:w-1/2 text-left">
-          <h1 className="heading-xl mb-[16px]">
-            Discover <br />
-            more than <br />
-            <span className="text-[#26A4FF]">5000+ Jobs</span>
+        <div className="hero-text-content pt-[82px] w-full md:w-3/4 lg:w-full text-left z-9">
+          <h1 className="heading-xl mb-[16px] text-[#2563EB]">
+            Your Gateway to Better Careers
+            {/* <span className="text-[#26A4FF]">5000+ Jobs</span> */}
           </h1>
           {/* SVG Shape */}
           <div className="w-full overflow-hidden">

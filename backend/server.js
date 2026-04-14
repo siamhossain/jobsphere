@@ -5,7 +5,6 @@ const connectDB = require("./config/db");
 
 const jobRoutes = require("./routes/jobRoutes");
 const applicationRoutes = require("./routes/applicationRoutes");
-// import authRoutes from "./routes/authRoutes.js";
 const authRoutes = require("./routes/authRoutes");
 
 

@@ -1,8 +1,13 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 
 export default function RegisterPage() {
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
+  const [loading, setLoading] = useState(false);
+
   const [form, setForm] = useState({
     name: "",
     email: "",
@@ -10,13 +15,56 @@ export default function RegisterPage() {
   });
 
   const handleRegister = async () => {
-    await fetch("http://localhost:5000/api/auth/register", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(form),
-    });
+    setError("");
+    setSuccess("");
+
+    if (!form.name || !form.email || !form.password) {
+      setError("All fields are required");
+      return;
+    }
+
+    if (!form.email.includes("@")) {
+      setError("Invalid email");
+      return;
+    }
+
+    if (form.password.length < 6) {
+      setError("Password must be at least 6 characters");
+      return;
+    }
+
+    try {
+      setLoading(true);
+
+      const res = await fetch("http://localhost:5000/api/auth/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(form),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        setError(data.message || "Registration failed");
+        return;
+      }
+
+      //Success
+      setSuccess("Account created successfully!");
+
+      // optional: reset form
+      setForm({
+        name: "",
+        email: "",
+        password: "",
+      });
+    } catch (err) {
+      setError("Something went wrong");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -77,9 +125,12 @@ export default function RegisterPage() {
         {/* Extra */}
         <p className="text-sm text-center text-gray-500 mt-4">
           Already have an account?{" "}
-          <span className="text-blue-600 cursor-pointer hover:underline">
+          <Link
+            href="/login"
+            className="text-blue-600 cursor-pointer hover:underline"
+          >
             Login
-          </span>
+          </Link>
         </p>
       </div>
     </div>

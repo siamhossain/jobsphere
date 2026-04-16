@@ -3,6 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useState, useEffect } from "react";
+import { getUser, logoutUser } from "@/lib/auth";
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -20,6 +21,9 @@ export default function Navbar() {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  const user = getUser();
+  console.log("Current User:", user); // Debugging line
 
   return (
     <nav
@@ -41,28 +45,50 @@ export default function Navbar() {
 
           <div className="space-x-4 hidden md:flex">
             <Link href="/jobs" className="nav-link">
-              Find Jobs
+              Find JobsX
             </Link>
-            <Link href="/admin" className="nav-link">
-              Admin Panel
-            </Link>
+
+            {user && user.role === "admin" && (
+              <Link href="/admin" className="nav-link">
+                Admin-Dashboard
+              </Link>
+            )}
           </div>
         </div>
 
         <div className="flex hidden md:flex items-center">
-          <Link
-            href="/login"
-            className="font-epilogue font-bold text-[14px] sm:text-[16px] leading[160%] text-primary px-3 sm:px-4 py-2 rounded-none w-[80px] sm:w-[92px] h-[44px] sm:h-[50px] flex items-center justify-center"
-          >
-            Login
-          </Link>
+          {!user && (
+            <Link
+              href="/login"
+              className="font-epilogue font-bold text-[14px] sm:text-[16px] leading[160%] text-primary px-3 sm:px-4 py-2 rounded-none w-[80px] sm:w-[92px] h-[44px] sm:h-[50px] flex items-center justify-center"
+            >
+              Login
+            </Link>
+          )}
 
-          <Link
-            href="/signup"
-            className="font-epilogue font-bold text-[14px] sm:text-[16px] leading[160%] ml-2 sm:ml-4 bg-primary text-white px-3 sm:px-4 py-2 rounded-none w-[90px] sm:w-[108px] h-[44px] sm:h-[50px] flex items-center justify-center"
-          >
-            Sign Up
-          </Link>
+          {user && (
+            <button
+              className="text-primary text-bold cursor-pointer"
+              onClick={logoutUser}
+            >
+              Logout
+            </button>
+          )}
+
+          {!user && (
+            <Link
+              href="/register"
+              className="font-epilogue font-bold text-[14px] sm:text-[16px] leading[160%] ml-2 sm:ml-4 bg-primary text-white px-3 sm:px-4 py-2 rounded-none w-[90px] sm:w-[108px] h-[44px] sm:h-[50px] flex items-center justify-center"
+            >
+              Sign Up
+            </Link>
+          )}
+
+          {user && (
+            <span className="ml-4 text-gray-600">
+              Hello, <span className="text-primary">{user.name}</span>
+            </span>
+          )}
         </div>
 
         {/* Hamburger Button */}

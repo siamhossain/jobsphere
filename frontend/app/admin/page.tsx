@@ -5,6 +5,7 @@ import AdminForm from "@/components/jobs/AdminForm";
 import AdminJobList from "@/components/jobs/AdminJobList";
 import { getJobs } from "@/lib/api";
 import { Job } from "@/types/job";
+import ProtectedRoute from "@/components/auth/ProtectedRoute";
 
 export default function AdminPage() {
   const [jobs, setJobs] = useState<Job[]>([]);
@@ -38,17 +39,19 @@ export default function AdminPage() {
   }
 
   return (
-    <div className="max-w-5xl mx-auto py-10 pt-[110px]">
-      <h1 className="text-3xl md:text-4xl font-bold text-center mb-12">
-        Admin Panel
-        <span className="block w-20 h-1 bg-primary mx-auto mt-4"></span>
-      </h1>
+    <ProtectedRoute adminOnly={true}>
+      <div className="max-w-5xl mx-auto py-10 pt-[110px]">
+        <h1 className="text-3xl md:text-4xl font-bold text-center mb-12">
+          Admin Panel
+          <span className="block w-20 h-1 bg-primary mx-auto mt-4"></span>
+        </h1>
 
-      {/* Create Job */}
-      <AdminForm refreshJobs={loadJobs} />
+        {/* Create Job */}
+        <AdminForm refreshJobs={loadJobs} />
 
-      {/* Job List, edit & Delete */}
-      <AdminJobList jobs={jobs} setJobs={setJobs} />
-    </div>
+        {/* Job List, edit & Delete */}
+        <AdminJobList jobs={jobs} setJobs={setJobs} />
+      </div>
+    </ProtectedRoute>
   );
 }

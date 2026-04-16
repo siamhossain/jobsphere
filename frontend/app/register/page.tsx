@@ -20,7 +20,7 @@ export default function RegisterPage() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
+    <div className="min-h-screen flex items-center justify-center bg-gray-100 pt-[120px] pb-[100px]">
       <div className="bg-white p-8 rounded-2xl shadow-lg w-full max-w-md">
         {/* Title */}
         <h2 className="text-2xl font-bold text-center text-gray-800 mb-6">

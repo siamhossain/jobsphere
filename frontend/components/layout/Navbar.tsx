@@ -22,7 +22,13 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const user = getUser();
+  const [user, setUser] = useState<any>(null);
+
+  useEffect(() => {
+    const u = getUser();
+    setUser(u);
+  }, []);
+
   console.log("Current User:", user); // Debugging line
 
   return (

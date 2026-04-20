@@ -1,12 +1,14 @@
+//
+
 "use client";
 
 import { useState } from "react";
 import Link from "next/link";
+import { registerUser } from "@/lib/auth";
+import { useRouter } from "next/navigation";
 
 export default function RegisterPage() {
-  const [error, setError] = useState("");
-  const [success, setSuccess] = useState("");
-  const [loading, setLoading] = useState(false);
+  const router = useRouter();
 
   const [form, setForm] = useState({
     name: "",
@@ -14,121 +16,172 @@ export default function RegisterPage() {
     password: "",
   });
 
+  const [errors, setErrors] = useState({
+    name: "",
+    email: "",
+    password: "",
+  });
+
+  const [touched, setTouched] = useState({
+    name: false,
+    email: false,
+    password: false,
+  });
+
+  const [loading, setLoading] = useState(false);
+
+  // ---------------- VALIDATION ----------------
+  const validate = (field: string, value: string) => {
+    let error = "";
+
+    if (field === "name") {
+      if (!value) error = "Name is required";
+    }
+
+    if (field === "email") {
+      if (!value) error = "Email is required";
+      else if (!value.includes("@")) error = "Invalid email";
+    }
+
+    if (field === "password") {
+      if (!value) error = "Password is required";
+      else if (value.length < 6) error = "Min 6 characters";
+    }
+
+    return error;
+  };
+
+  // ---------------- REGISTER ----------------
   const handleRegister = async () => {
-    setError("");
-    setSuccess("");
+    const nameErr = validate("name", form.name);
+    const emailErr = validate("email", form.email);
+    const passErr = validate("password", form.password);
 
-    if (!form.name || !form.email || !form.password) {
-      setError("All fields are required");
-      return;
-    }
+    setErrors({
+      name: nameErr,
+      email: emailErr,
+      password: passErr,
+    });
 
-    if (!form.email.includes("@")) {
-      setError("Invalid email");
-      return;
-    }
-
-    if (form.password.length < 6) {
-      setError("Password must be at least 6 characters");
-      return;
-    }
+    if (nameErr || emailErr || passErr) return;
 
     try {
       setLoading(true);
 
-      const res = await fetch("http://localhost:5000/api/auth/register", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(form),
-      });
+      const user = await registerUser(form);
 
-      const data = await res.json();
-
-      if (!res.ok) {
-        setError(data.message || "Registration failed");
-        return;
+      if (user.role === "admin") {
+        router.push("/admin");
+      } else {
+        router.push("/");
       }
-
-      //Success
-      setSuccess("Account created successfully!");
-
-      // optional: reset form
-      setForm({
-        name: "",
-        email: "",
-        password: "",
-      });
-    } catch (err) {
-      setError("Something went wrong");
+    } catch (err: any) {
+      setErrors((prev) => ({
+        ...prev,
+        email: err.message,
+      }));
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100 pt-[120px] pb-[100px]">
+    <div className="min-h-screen flex items-center justify-center bg-gray-100">
       <div className="bg-white p-8 rounded-2xl shadow-lg w-full max-w-md">
-        {/* Title */}
-        <h2 className="text-2xl font-bold text-center text-gray-800 mb-6">
+        <h2 className="text-2xl font-bold text-center mb-6">
           Create Account 🚀
         </h2>
 
-        {/* Name */}
-        <div className="mb-4">
-          <label className="block text-sm font-medium text-gray-600 mb-1">
-            Full Name
-          </label>
-          <input
-            type="text"
-            placeholder="Enter your name"
-            onChange={(e) => setForm({ ...form, name: e.target.value })}
-            className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-          />
-        </div>
+        {/* NAME */}
+        <input
+          placeholder="Name"
+          value={form.name}
+          onChange={(e) => {
+            setForm({ ...form, name: e.target.value });
 
-        {/* Email */}
-        <div className="mb-4">
-          <label className="block text-sm font-medium text-gray-600 mb-1">
-            Email
-          </label>
-          <input
-            type="email"
-            placeholder="Enter your email"
-            onChange={(e) => setForm({ ...form, email: e.target.value })}
-            className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-          />
-        </div>
+            if (touched.name) {
+              setErrors({
+                ...errors,
+                name: validate("name", e.target.value),
+              });
+            }
+          }}
+          onBlur={() => setTouched({ ...touched, name: true })}
+          className={`w-full mb-2 px-4 py-2 border rounded-lg
+            ${
+              errors.name && touched.name ? "border-red-500" : "border-gray-300"
+            }`}
+        />
+        {errors.name && touched.name && (
+          <p className="text-red-500 text-sm mb-2">{errors.name}</p>
+        )}
 
-        {/* Password */}
-        <div className="mb-6">
-          <label className="block text-sm font-medium text-gray-600 mb-1">
-            Password
-          </label>
-          <input
-            type="password"
-            placeholder="Enter your password"
-            onChange={(e) => setForm({ ...form, password: e.target.value })}
-            className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-          />
-        </div>
+        {/* EMAIL */}
+        <input
+          placeholder="Email"
+          value={form.email}
+          onChange={(e) => {
+            setForm({ ...form, email: e.target.value });
 
-        {/* Button */}
+            if (touched.email) {
+              setErrors({
+                ...errors,
+                email: validate("email", e.target.value),
+              });
+            }
+          }}
+          onBlur={() => setTouched({ ...touched, email: true })}
+          className={`w-full mb-2 px-4 py-2 border rounded-lg
+            ${
+              errors.email && touched.email
+                ? "border-red-500"
+                : "border-gray-300"
+            }`}
+        />
+        {errors.email && touched.email && (
+          <p className="text-red-500 text-sm mb-2">{errors.email}</p>
+        )}
+
+        {/* PASSWORD */}
+        <input
+          type="password"
+          placeholder="Password"
+          value={form.password}
+          onChange={(e) => {
+            setForm({ ...form, password: e.target.value });
+
+            if (touched.password) {
+              setErrors({
+                ...errors,
+                password: validate("password", e.target.value),
+              });
+            }
+          }}
+          onBlur={() => setTouched({ ...touched, password: true })}
+          className={`w-full mb-2 px-4 py-2 border rounded-lg
+            ${
+              errors.password && touched.password
+                ? "border-red-500"
+                : "border-gray-300"
+            }`}
+        />
+        {errors.password && touched.password && (
+          <p className="text-red-500 text-sm mb-4">{errors.password}</p>
+        )}
+
+        {/* BUTTON */}
         <button
           onClick={handleRegister}
-          className="w-full bg-green-600 text-white py-2 rounded-lg font-semibold hover:bg-green-700 transition duration-200"
+          disabled={loading}
+          className="w-full bg-green-600 text-white py-2 rounded-lg"
         >
-          Register
+          {loading ? "Registering..." : "Register"}
         </button>
 
-        {/* Extra */}
-        <p className="text-sm text-center text-gray-500 mt-4">
+        {/* LINK */}
+        <p className="text-center mt-4 text-sm">
           Already have an account?{" "}
-          <Link
-            href="/login"
-            className="text-blue-600 cursor-pointer hover:underline"
-          >
+          <Link href="/login" className="text-blue-600">
             Login
           </Link>
         </p>

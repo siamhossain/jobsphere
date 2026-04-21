@@ -102,10 +102,10 @@ export default function RegisterPage() {
             setForm({ ...form, name: e.target.value });
 
             if (touched.name) {
-              setErrors({
-                ...errors,
+              setErrors((prev) => ({
+                ...prev,
                 name: validate("name", e.target.value),
-              });
+              }));
             }
           }}
           onBlur={() => setTouched({ ...touched, name: true })}
@@ -126,10 +126,10 @@ export default function RegisterPage() {
             setForm({ ...form, email: e.target.value });
 
             if (touched.email) {
-              setErrors({
-                ...errors,
+              setErrors((prev) => ({
+                ...prev,
                 email: validate("email", e.target.value),
-              });
+              }));
             }
           }}
           onBlur={() => setTouched({ ...touched, email: true })}
@@ -153,10 +153,10 @@ export default function RegisterPage() {
             setForm({ ...form, password: e.target.value });
 
             if (touched.password) {
-              setErrors({
-                ...errors,
+              setErrors((prev) => ({
+                ...prev,
                 password: validate("password", e.target.value),
-              });
+              }));
             }
           }}
           onBlur={() => setTouched({ ...touched, password: true })}

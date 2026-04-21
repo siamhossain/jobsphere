@@ -92,13 +92,20 @@ export default function LoginPage() {
               setEmail(e.target.value);
 
               if (touched.email) {
-                setErrors({
-                  ...errors,
+                setErrors((prev) => ({
+                  ...prev,
                   email: validate("email", e.target.value),
-                });
+                }));
               }
             }}
-            onBlur={() => setTouched({ ...touched, email: true })}
+            onBlur={() => {
+              setTouched((prev) => ({ ...prev, email: true }));
+
+              setErrors((prev) => ({
+                ...prev,
+                email: validate("email", email),
+              }));
+            }}
             className={`w-full mb-2 px-4 py-2 border rounded-lg
               ${
                 errors.email && touched.email
@@ -120,10 +127,10 @@ export default function LoginPage() {
               setPassword(e.target.value);
 
               if (touched.password) {
-                setErrors({
-                  ...errors,
+                setErrors((prev) => ({
+                  ...prev,
                   password: validate("password", e.target.value),
-                });
+                }));
               }
             }}
             onBlur={() => setTouched({ ...touched, password: true })}
@@ -143,7 +150,7 @@ export default function LoginPage() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full bg-blue-600 text-white py-2 rounded-lg"
+            className="w-full bg-blue-600 text-white py-2 rounded-lg cursor-pointer disabled:bg-blue-400"
           >
             {loading ? "Logging in..." : "Login"}
           </button>

@@ -2,8 +2,9 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { useState, useEffect } from "react";
-import { getUser, logoutUser } from "@/lib/auth";
+import { useState, useEffect, useContext } from "react";
+import { logoutUser } from "@/lib/auth";
+import { AuthContext } from "@/context/AuthContext";
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -22,14 +23,7 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const [user, setUser] = useState<any>(null);
-
-  useEffect(() => {
-    const u = getUser();
-    setUser(u);
-  }, []);
-
-  console.log("Current User:", user); // Debugging line
+  const { user, clearUser } = useContext(AuthContext);
 
   return (
     <nav
@@ -75,7 +69,10 @@ export default function Navbar() {
           {user && (
             <button
               className="text-primary text-bold cursor-pointer"
-              onClick={logoutUser}
+              onClick={() => {
+                logoutUser();
+                clearUser();
+              }}
             >
               Logout
             </button>

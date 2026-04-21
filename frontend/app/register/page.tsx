@@ -1,14 +1,15 @@
-//
-
 "use client";
 
 import { useState } from "react";
 import Link from "next/link";
 import { registerUser } from "@/lib/auth";
 import { useRouter } from "next/navigation";
+import { useContext } from "react";
+import { AuthContext } from "@/context/AuthContext";
 
 export default function RegisterPage() {
   const router = useRouter();
+  const { updateUser } = useContext(AuthContext);
 
   const [form, setForm] = useState({
     name: "",
@@ -69,6 +70,7 @@ export default function RegisterPage() {
       setLoading(true);
 
       const user = await registerUser(form);
+      updateUser(); // UPDATE CONTEXT
 
       if (user.role === "admin") {
         router.push("/admin");

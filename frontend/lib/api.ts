@@ -53,6 +53,20 @@ export async function createJob(data: any) {
   return result.data;
 }
 
+// export async function applyToJob(data: any) {
+//   const res = await fetch(`${API_URL}/applications`, {
+//     method: "POST",
+//     headers: { "Content-Type": "application/json" },
+//     body: JSON.stringify(data),
+//   });
+
+//   if (!res.ok) throw new Error("Failed to apply");
+  
+//   const result = await res.json();
+
+//   return result.data;
+// }
+
 export async function applyToJob(data: any) {
   const res = await fetch(`${API_URL}/applications`, {
     method: "POST",
@@ -60,9 +74,12 @@ export async function applyToJob(data: any) {
     body: JSON.stringify(data),
   });
 
-  if (!res.ok) throw new Error("Failed to apply");
-  
   const result = await res.json();
+
+  if (!res.ok) {
+    console.error("Backend error:", result);
+    throw new Error(result.message || "Failed to apply");
+  }
 
   return result.data;
 }

@@ -68,13 +68,13 @@ export default function Navbar() {
 
           {user && (
             <button
-              className="text-primary text-bold cursor-pointer"
+              className="text-primary text-bold cursor-pointer bg-[linear-gradient(to_right,rgb(79,70,229),rgb(147,51,234),rgb(219,39,119))]"
               onClick={() => {
                 logoutUser();
                 clearUser();
               }}
             >
-              Logout
+              LogoutX
             </button>
           )}
 

@@ -1,37 +1,37 @@
 @layer components {
 
-  /* Headings */
+  /* Headings (Optional helpers */
 
   .heading-xl {
-    @apply font-clash text-7xl font-semibold text-heading;
+    @apply text-6xl font-semibold text-heading;
   }
 
   .heading-lg {
-    @apply font-clash text-5xl font-semibold text-heading;
+    @apply text-4xl font-semibold text-heading;
   }
 
   .heading-md {
-    @apply font-clash text-2xl font-semibold text-heading;
+    @apply text-2xl font-semibold text-heading;
   }
 
   .heading-sm {
-    @apply font-clash text-lg font-semibold text-heading;
+    @apply text-lg font-semibold text-heading;
   }
 
   /* Body text */
 
   .text-body {
-    @apply font-epilogue text-base text-text;
+    @apply text-base text-text;
   }
 
   .text-small {
-    @apply font-epilogue text-sm text-gray-500;
+    @apply text-sm text-gray-500;
   }
 
   /* Navigation */
 
   .nav-link {
-    @apply font-epilogue text-base font-medium text-nav transition-colors hover:text-primary;
+    @apply text-base font-medium text-nav transition-colors hover:text-primary;
   }
 
   /* Container */

@@ -5,22 +5,6 @@ import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import { AuthProvider } from "@/context/AuthContext";
 
-const epilogue = Epilogue({
-  subsets: ["latin"],
-  variable: "--font-epilogue",
-  weight: ["400", "500", "600", "700"],
-});
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
-
 export const metadata: Metadata = {
   title: "JobSphere",
 };
@@ -32,7 +16,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${epilogue.variable} antialiased`}>
+      <body className="">
         <AuthProvider>
           <Navbar />
           <main>{children}</main>

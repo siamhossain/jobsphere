@@ -1,22 +1,25 @@
-@font-face {
-  font-family: "ClashDisplay";
-  src: url("/fonts/ClashDisplay-Semibold.woff2") format("woff2");
-  font-weight: 600;
-}
+/* Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@500;600;700&display=swap');
 
 @import "tailwindcss";
+
+/* Components */
 @import "../styles/typography.css";
 
+/* Theme variables */
 :root {
   --background: #ffffff;
   --foreground: #171717;
-}
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  /* Colors */
+
+  /* Fonts */
+  --font-body: "Inter", sans-serif;
+  --font-heading: "Poppins", sans-serif;
+
+   /* Shadow */
+  --filter-shadow: 0px 79px 128px rgba(192, 192, 192, 0.09), 0px 28.8363px 46.7221px rgba(192, 192, 192, 0.0598508), 0px 13.9995px 22.6827px rgba(192, 192, 192, 0.0475723), 0px 6.86281px 11.1195px rgba(192, 192, 192, 0.0380675), 0px 2.71357px 4.39666px rgba(192, 192, 192, 0.0270615);
+
 }
 
 @theme {
@@ -25,24 +28,17 @@
   --color-border: #E5E7EB;
   --color-text: #7C8493;
   --color-nav: #515B6F;
-
   --color-heading: #25324B;
-  
-  --font-epilogue: var(--font-epilogue);
-  --font-clash: "ClashDisplay", sans-serif;
-
-  --filter-shadow: 0px 79px 128px rgba(192, 192, 192, 0.09), 0px 28.8363px 46.7221px rgba(192, 192, 192, 0.0598508), 0px 13.9995px 22.6827px rgba(192, 192, 192, 0.0475723), 0px 6.86281px 11.1195px rgba(192, 192, 192, 0.0380675), 0px 2.71357px 4.39666px rgba(192, 192, 192, 0.0270615);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
 }
  
+
+/* Base styles */
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: var(--font-epilogue);
+  font-family: var(--font-body);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
 }

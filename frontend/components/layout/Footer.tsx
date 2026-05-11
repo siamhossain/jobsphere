@@ -101,7 +101,7 @@ export default function Footer() {
               <input
                 type="email"
                 placeholder="Email Address"
-                className="px-3 py-2 w-full text-base bg-white text-[#A8ADB7] outline-none rounded-lg"
+                className="px-3 py-2 w-full text-base bg-white text-gray-600 outline-none rounded-lg"
               />
               <button className="bg-white text-purple-600 px-6 py-2 text-sm rounded-lg hover:shadow-lg transition-all whitespace-nowrap">
                 <span className="pur">Subscribe</span>

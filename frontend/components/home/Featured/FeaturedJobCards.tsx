@@ -1,5 +1,8 @@
 import { getFeaturedJobs } from "@/lib/api";
 import Image from "next/image";
+import { CiLocationOn } from "react-icons/ci";
+import { LuLayers } from "react-icons/lu";
+import { FaLongArrowAltRight } from "react-icons/fa";
 
 const companyLogos: Record<string, string> = {
   Revolut: "images/company-logos/Revolut.svg",
@@ -17,52 +20,67 @@ export default async function FeaturedJobCard() {
 
   return (
     <div className="featured-jobs">
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 gap-6">
         {jobs.map((job: any) => (
           <div
             key={job._id}
-            className="border border-[#D6DDEB] p-[24px] rounded-none"
+            className="bg-white p-6 rounded-2xl shadow-lg hover:shadow-xl transition-all border border-gray-100"
           >
-            <div className="flex justify-between items-start mb-4">
-              <div className="logo">
-                <Image
-                  src={
-                    companyLogos[job.company] ||
-                    "images/company-logos/default.svg"
-                  }
-                  alt={job.company}
-                  width={48}
-                  height={48}
-                />
+            <div className="flex items-start justify-between mb-4">
+              <div className="flex gap-4">
+                <div className="logo w-14 h-14 bg-gradient-to-br from-purple-400 to-pink-400 rounded-xl flex items-center justify-center">
+                  <Image
+                    src={
+                      companyLogos[job.company] ||
+                      "images/company-logos/default.svg"
+                    }
+                    alt={job.company}
+                    width={28}
+                    height={28}
+                  />
+                </div>
+                <div className="job-company-title">
+                  <h3 className="font-medium text-xl mb-1">{job.title}</h3>
+                  <p className="text-gray-500">{job.company}</p>
+                </div>
               </div>
-              <div className="job-type leading-[160%] pt-[5px]">
-                <span className="font-regular tex-base text-primary border border-primary px-[11px] py-[8px] rounded-none">
+              <div className="job-type leading-[160%]">
+                <span className="px-3 py-1 bg-purple-100 text-purple-700 rounded-full text-sm">
                   Full Time
                 </span>
               </div>
             </div>
-            <h3 className="font-epilogue font-semibold leading-[160%] text-color-heading text-lg mb-1">
-              {job.title}
-            </h3>
-            <div className="company-info flex flex-wrap gap-x-[20px] gap-y-[10px] items-center">
-              <p className="text-body leading-[160%] text-[#515B6F] relative before:absolute before:content-[''] before:w-[4px] before:h-[4px] before:bg-gray-500 before:rounded-full before:right-[-11px] before:top-[10px]">
-                {job.company}
-              </p>
-              <p className="text-body leading-[160%] text-[#515B6F]">
-                {job.location}
-              </p>
-            </div>
-            <div className="descrition pt-[2px]">
-              <p className="text-body text-[15px] leading-[160%] text-[#7C8493] mt-4">
+
+            <div className="descrition">
+              <p className="font-Regular text-gray-500 mb-4">
                 {job.description}
               </p>
             </div>
-            <div className="categories pt-[16px]">
-              <ul className="category-list flex flex-wrap gap-[12px] mb-[8px]">
-                <li className="font-semibold text-[14px] text-[#FFB836] leading-[160%] px-[16px] py-[4px] bg-[rgb(235_133_51/0.1)] opacity-100 rounded-[80px]">
-                  {job.category}
-                </li>
-              </ul>
+
+            <div className="flex items-center justify-between pt-4 border-t border-gray-100">
+              <div className="company-meta">
+                <ul className="flex flex-wrap items-center gap-x-[20px] gap-y-[10px]">
+                  <li className="flex items-center gap-1">
+                    <CiLocationOn size={19} color="gray" />
+
+                    <span className="text-sm font-Regular text-gray-500">
+                      {job.location}
+                    </span>
+                  </li>
+
+                  <li className="flex items-center gap-[8px]">
+                    <LuLayers size={18} color="gray" />
+
+                    <span className="text-sm font-Regular text-gray-500">
+                      {job.category}
+                    </span>
+                  </li>
+                </ul>
+              </div>
+
+              <button className="text-purple-600 hover:text-purple-700 font-medium flex items-center gap-1">
+                Apply Now <FaLongArrowAltRight />
+              </button>
             </div>
           </div>
         ))}

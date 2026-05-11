@@ -54,31 +54,28 @@ export default function CategoryCards() {
   };
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-[32px]">
+    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
       {categories.map((cat) => (
         <div
           key={cat.name}
           onClick={() => handleClick(cat.name)}
-          className="group cursor-pointer border border-[#D6DDEB] rounded-none p-[32px] flex flex-col gap-2 hover:bg-primary hover:border-primary transition duration-400"
+          className="bg-white p-6 rounded-2xl shadow-lg cursor-pointer hover:shadow-xl transition-all hover:-translate-y-1 cursor-pointer"
         >
           {/* icon */}
-          <div className="w-10 h-10 group-hover:bg-white rounded-md">
+          <div className="bg-[rgba(79,70,229,0.082)] w-12 h-12 rounded-lg flex items-center justify-center mb-4">
             <Image
               src={getIconPath(cat.name)}
               alt={`${cat.name} icon`}
-              width={48}
-              height={48}
+              width={24}
+              height={24}
               className="object-contain"
             />
           </div>
 
-          <h3 className="heading-md group-hover:text-white transition duration-400">
-            {cat.name}
-          </h3>
+          <h3 className="text-lg font-medium mb-2">{cat.name}</h3>
 
-          <p className="text-body text-[18px] group-hover:text-white transition duration-400">
-            {`${cat.jobCount} `}
-            jobs available
+          <p className="text-sm text-gray-450 text-body">
+            {`${cat.jobCount}`}+ open positions
             <Image
               src="/arrow-right.svg"
               alt="Arrow Right Icon"

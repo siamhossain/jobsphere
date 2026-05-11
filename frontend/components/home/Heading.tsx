@@ -15,12 +15,10 @@ const Heading: React.FC<HeadingProps> = ({
 }) => {
   return (
     <div className="flex flex-col md:flex-row justify-between items-start md:items-baseline w-full mb-[40px] gap-4 md:gap-0">
-      {/* Heading */}
       <h2 className="heading-lg leading-[110%] md:text-left">
-        {title} <span className="text-[#26A4FF]">{coloredTitle}</span>
+        {title} <span className="text-purple-600">{coloredTitle}</span>
       </h2>
 
-      {/* Button */}
       <Link
         href="/jobs"
         className="flex items-center justify-center md:justify-start gap-3 text-base text-primary font-semibold leading-[160%] py-2 cursor-pointer hover:text-black rounded-none transition-colors duration-300"

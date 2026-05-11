@@ -34,23 +34,22 @@ export default function Navbar() {
       <div className="container-main h-[78px] flex items-center justify-between px-4 sm:px-6 lg:px-0">
         <div className="flex items-center">
           <Link href="/" className="font-bold text-xl pr-4 sm:pr-10">
-            <Image
-              src="/JobSphere_logo.png"
-              alt="JobSphere Logo"
-              width={152}
-              height={36}
-              className="inline mr-2 w-[120px] sm:w-[152px] h-auto"
-            />
+            <div className="nav-logo flex items-center gap-2">
+              <div className="inner w-8 h-8 rounded-lg flex items-center justify-center bg-[linear-gradient(to_right,rgb(79,70,229),rgb(147,51,234))]">
+                <span className="text-white font-bold">JS</span>
+              </div>
+              <span className="font-bold text-gray-900">JobSphere</span>
+            </div>
           </Link>
 
           <div className="space-x-4 hidden md:flex">
             <Link href="/jobs" className="nav-link">
-              Find JobsX
+              Find Jobs
             </Link>
 
             {user && user.role === "admin" && (
               <Link href="/admin" className="nav-link">
-                Admin-Dashboard
+                Dashboard
               </Link>
             )}
           </div>
@@ -68,13 +67,13 @@ export default function Navbar() {
 
           {user && (
             <button
-              className="text-primary text-bold cursor-pointer bg-[linear-gradient(to_right,rgb(79,70,229),rgb(147,51,234),rgb(219,39,119))]"
+              className="text-white px-6 py-2 rounded-lg transition-colors shadow-lg hover:shadow-xl bg-gradient-to-r from-indigo-600 to-purple-600 cursor-pointer font-medium"
               onClick={() => {
                 logoutUser();
                 clearUser();
               }}
             >
-              LogoutX
+              Logout
             </button>
           )}
 

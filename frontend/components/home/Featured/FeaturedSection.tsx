@@ -3,7 +3,7 @@ import FeaturedJobCards from "@/components/home/Featured/FeaturedJobCards";
 
 export default function FeaturedSection() {
   return (
-    <section className="featured-job-section pt-[70px] pb-[70px]">
+    <section className="featured-job-section py-20 px-4 bg-gradient-to-b from-purple-50 to-white">
       <div className="container-main">
         <Heading
           title="Featured"

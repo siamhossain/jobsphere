@@ -1,5 +1,7 @@
 import { getLatestJobs } from "@/lib/api";
 import Image from "next/image";
+import { CiLocationOn, CiClock2 } from "react-icons/ci";
+import { LuLayers } from "react-icons/lu";
 
 const companyLogos: Record<string, string> = {
   Revolut: "images/company-logos/Revolut.svg",
@@ -17,52 +19,61 @@ export default async function LatestJobCards() {
 
   return (
     <div className="latest-jobs">
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 gap-6 sm:gap-8 md:gap-8 lg:gap-8">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         {jobs.map((job: any) => (
           <div
             key={job._id}
-            className="bg-white px-4 sm:px-6 md:px-[40px] py-6 sm:py-8 md:py-[24px] rounded-none"
+            className="bg-white p-6 rounded-2xl shadow-md hover:shadow-xl transition-all border border-gray-100 hover:-translate-y-1"
           >
-            <div className="flex flex-col sm:flex-row gap-4 sm:gap-[24px] items-start mb-4">
-              <div className="logo flex-shrink-0">
+            <div className="">
+              <div className="logo w-12 h-12 bg-gradient-to-br from-purple-400 to-pink-400 rounded-lg flex items-center justify-center mb-4">
                 <Image
                   src={
                     companyLogos[job.company] ||
                     "images/company-logos/default.svg"
                   }
                   alt={job.company}
-                  width={48}
-                  height={48}
+                  width={24}
+                  height={24}
                   className="object-contain"
                 />
               </div>
               <div className="latest-job-content flex-1">
-                <h3 className="font-epilogue font-semibold leading-[160%] text-color-heading text-lg mb-1">
-                  {job.title}
-                </h3>
-
-                <div className="company-info flex flex-wrap flex-col sm:flex-row gap-2 sm:gap-x-[20px] sm:gap-y-[10px] items-start sm:items-center mb-[8px]">
-                  <p className="text-body leading-[160%] text-[#515B6F] relative before:absolute before:content-[''] before:w-[4px] before:h-[4px] before:bg-gray-500 before:rounded-full before:right-[-11px] before:top-[10px]">
-                    {job.company}
-                  </p>
-                  <p className="text-body leading-[160%] text-[#515B6F]">
-                    {job.location}
-                  </p>
+                <div className="job-company-title">
+                  <h3 className="font-medium text-lg mb-2">{job.title}</h3>
+                  <p className="text-gray-500 mb-4">{job.company}</p>
                 </div>
 
-                <div className="job-type-category-wrap flex flex-wrap flex-col sm:flex-row gap-2 sm:gap-[20px] items-start sm:items-center">
-                  <span className="font-regular text-[14px] text-[#56CDAD] bg-[rgb(86_205_173/0.1)] px-[11px] py-[5px] h-[34px] flex items-center justify-center rounded-[80px] relative after:absolute after:content-[''] after:w-[1px] after:h-[34px] after:bg-[#D6DDEB] after:right-[-11px] after:top-[0] sm:after:block after:hidden">
-                    Full Time
-                  </span>
+                <div className="company-meta">
+                  <ul className="space-y-2 text-sm text-gray-500 mb-4">
+                    <li className="flex items-center gap-1">
+                      <CiLocationOn size={19} color="gray" />
 
-                  <div className="categories">
-                    <ul className="category-list flex gap-2 sm:gap-[12px] flex-wrap">
-                      <li className="font-semibold text-[14px] text-[#FFB836] leading-[160%] px-[16px] h-[34px] flex items-center bg-[rgb(235_133_51/0.1)] opacity-100 rounded-[80px]">
+                      <span className="text-sm font-Regular text-gray-500">
+                        {job.location}
+                      </span>
+                    </li>
+
+                    <li className="flex items-center gap-[8px]">
+                      <LuLayers size={18} color="gray" />
+
+                      <span className="text-sm font-Regular text-gray-500">
                         {job.category}
-                      </li>
-                    </ul>
-                  </div>
+                      </span>
+                    </li>
+
+                    <li className="flex items-center gap-[8px]">
+                      <CiClock2 size={18} color="gray" />
+
+                      <span className="text-sm font-Regular text-gray-500">
+                        Full Time {/*job.type*/}
+                      </span>
+                    </li>
+                  </ul>
                 </div>
+                <button className="w-full py-2 border-2 border-purple-500 text-purple-600 rounded-lg hover:bg-purple-500 hover:text-white transition-colors">
+                  View Details
+                </button>
               </div>
             </div>
           </div>

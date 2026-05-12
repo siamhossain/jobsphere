@@ -80,7 +80,7 @@ export default function Navbar() {
           {!user && (
             <Link
               href="/register"
-              className="font-epilogue font-bold text-[14px] sm:text-[16px] leading[160%] ml-2 sm:ml-4 bg-primary text-white px-3 sm:px-4 py-2 rounded-none w-[90px] sm:w-[108px] h-[44px] sm:h-[50px] flex items-center justify-center"
+              className="text-white px-6 py-2 rounded-lg transition-colors shadow-lg hover:shadow-xl bg-gradient-to-r from-indigo-600 to-purple-600 cursor-pointer font-medium"
             >
               Sign Up
             </Link>

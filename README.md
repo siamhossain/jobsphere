@@ -6,7 +6,7 @@ The project demonstrates a separate frontend and backend.
 ## Live Demo
 
 Frontend:
-https://quickhire-board.vercel.app
+https://jobsphere-dev.vercel.app
 
 Backend API:
 https://job-board-api-mh88.onrender.com/api/jobs
@@ -53,7 +53,7 @@ Deployment
 
 ## Project Structure
 
-quickhire/
+JobSphere/
 │
 ├── frontend/
 │ ├── app/
@@ -73,11 +73,11 @@ quickhire/
 
 1. Clone the repository
 
-git clone https://github.com/siamhossain/quickhire.git
+git clone https://github.com/siamhossain/jobsphere.git
 
 2. Install frontend
 
-cd quickhire/frontend
+cd jobsphere/frontend
 npm install
 
 Run frontend

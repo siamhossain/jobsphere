@@ -37,6 +37,9 @@ Deployment
 
 ## Features
 
+- JWT Authentication
+- User Login/ Registration
+- Role-based permissions
 - Browse available jobs
 - View detailed job descriptions
 - Filter with category, locations and search jobs
@@ -127,15 +130,22 @@ DELETE /api/jobs/:id
 
 ## Future Improvements
 
-- Authentication system
 - Resume upload
 - Saved jobs
 - Multiple Category Selector
 - Functional Job type
 - Company profiles
 - Advanced filtering
+- AI-powered job recommendations
+- Email verification & forgot password
 - Popular search
 - Pagination
+
+## UX Improvements
+
+- Dark/light theme
+- Skeleton loaders
+- Mobile responsiveness polish
 
 ## Author
 
